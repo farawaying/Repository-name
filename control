@@ -1,0 +1,10 @@
+Package: com.openai.orbitwindow
+Name: OrbitWindow
+Version: 0.1.0-alpha2
+Architecture: iphoneos-arm64
+Description: Rootless SpringBoard floating app window experiment for iPhone 13 Pro iOS 16.6.1. Bottom-corner wheel, floating notifications and app jumps. No network code, no privacy collection.
+Maintainer: Local User <local@example.com>
+Author: Local User
+Section: Tweaks
+Depends: mobilesubstrate, preferenceloader, firmware (>= 16.0), com.opa334.altlist
+Conflicts: com.openai.orbitwindow

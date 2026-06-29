@@ -1,0 +1,10 @@
+{
+    entry = {
+        bundle = OrbitWindowPrefs;
+        cell = PSLinkCell;
+        detail = OWRootListController;
+        icon = OrbitWindowPrefs;
+        isController = 1;
+        label = OrbitWindow;
+    };
+}

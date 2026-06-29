@@ -1,0 +1,29 @@
+{
+    title = "OrbitWindow 设置";
+    items = (
+        {
+            cell = PSGroupCell;
+            label = "OrbitWindow";
+            footerText = "左下角、右下角向内斜着滑动呼出轮盘；通知和 App 内跳转默认对所有应用以小窗打开。轮盘只显示你在下面选择的 App 图标。";
+        },
+        {
+            cell = PSLinkCell;
+            detail = ATLApplicationListMultiSelectionController;
+            defaults = "com.openai.orbitwindow";
+            key = selectedApps;
+            label = "选择指定的 App 以轮盘形式打开";
+            sections = ("user", "system");
+            useSearchBar = 1;
+        },
+        {
+            cell = PSGroupCell;
+            label = "应用插件效果";
+            footerText = "注销是重启桌面 SpringBoard，让插件设置重新加载；不是重启手机。";
+        },
+        {
+            cell = PSButtonCell;
+            action = respring;
+            label = "注销应用插件效果";
+        }
+    );
+}
