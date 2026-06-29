@@ -1,0 +1,44 @@
+name: Build rootless deb
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y make clang git curl wget unzip zip fakeroot dpkg-dev ldid perl rsync
+
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          echo "$HOME/theos/bin" >> $GITHUB_PATH
+
+      - name: Download iPhoneOS SDK
+        run: |
+          mkdir -p $THEOS/sdks
+          wget -O /tmp/iPhoneOS16.5.sdk.zip https://github.com/theos/sdks/archive/refs/heads/master.zip
+          unzip /tmp/iPhoneOS16.5.sdk.zip -d /tmp/sdks
+          find /tmp/sdks -name "*.sdk" -maxdepth 3 -exec cp -R {} $THEOS/sdks/ \;
+
+      - name: Build rootless package
+        run: |
+          make clean || true
+          make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+
+      - name: Upload deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrbitWindow-rootless-deb
+          path: packages/*.deb
